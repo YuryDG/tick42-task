@@ -1,0 +1,5 @@
+src/serviceWorker.ts
+src/**/__tests__/**
+src/react-app-env.d.ts
+src/setupTests.ts
+src/index.tsx
