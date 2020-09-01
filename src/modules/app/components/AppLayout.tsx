@@ -5,10 +5,10 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
 import { SelectedItem, TreeData } from '../types';
-import CompaniesTree from '../../companies/components/CompaniesTree';
 import CompanyDetails from '../../companies/components/CompanyDetails';
 import JobAreaDetails from '../../employees/components/JobAreaDetails';
 import EmployeeDetails from '../../employees/components/EmployeeDetails';
+import AppTreeView from './tree/AppTreeView';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -59,7 +59,7 @@ function AppLayout({
         <Grid container spacing={1}>
           <Grid item sm={4}>
             <Paper className={classes.paper}>
-              <CompaniesTree
+              <AppTreeView
                 treeData={treeData}
                 selectedItem={selectedItem}
                 loadDataForCurrentNode={loadDataForCurrentNode}
