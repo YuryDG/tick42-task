@@ -1,44 +1,47 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Tick42's JavaScript Pre-Interview Task
 
-## Available Scripts
+## DON'T PANIC!
 
-In the project directory, you can run:
+Hello there and welcome to Tick42's pre-interview task assignment.
 
-### `yarn start`
+Before we start, we want to thank you for your interest in Tick42, and for making the time to work on this task as part of your adventure to become one of us!
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+In the `data` folder you will find four JSON files:
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+```
+- companies.json
+- company-addresses.json
+- employees.json
+- projects.json
+```
 
-### `yarn test`
+You will use them to build a small app.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### App requirements
 
-### `yarn build`
+- Use the company and employees data to build a tree view like navigation with the following structure:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+Company name
+    Employee job area
+        Employee name
+```
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- When the user clicks on a company, the app should display the company's address and the company's projects (use `projects.json`). It should be possible to visualize the information about each project as well as to manage the projects: edit project details (changing the project name) and assigning & removing employees from a project. If you feel that's too easy, you can add the ability to add and remove projects
+- When the user clicks on an employee's name you will need to show the employee's details, and projects they're part of.
+- Clicking on Employee's job area should only display how many employees work in that area, and the number of projects they participate in.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Tech requirements
 
-### `yarn eject`
+- The app should be developed using whichever framework you're most comfortable with - React or Angular (but not Angular 1.x). You can start from scratch, from a boilerplate project or use a scaffolding CLI.
+- You can use ES5+ or TypeScript and any supporting libraries (e.g. Lodash, Ramda, RxJS, etc.) you need.
+- The code needs to demonstrate state management within the app as well as managing asynchronous requests.
+- In terms of serving the static JSON files upon app requests, it's up to you whether to create a dev server or use an existing package.
+- The app's aesthetics are up to you - you can use Bootstrap, Material or custom CSS.
+- We should be able to run your solution by simply unzipping it and running a single command on the command line.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Getting started
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Download the attached .zip file with the JSON files and start your journey. Don't forget to save your work before sending us your masterpiece.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Good luck and happy hacking!
