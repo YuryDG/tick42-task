@@ -1,3 +1,19 @@
+# Solution
+This project was bootstrapped with Create React App.
+
+Steps
+
+1 - Run ```yarn``` or ```npm i``` 
+
+2 - Run ```yarn server``` command to run the json-server (http://localhost:3005)
+
+3 - Run ```yarn start``` to start the app. (http://localhost:3000)
+
+Note: Due to some [bugs](https://github.com/typicode/json-server/issues/725) in json-server I replaced the property `employeesId` by `employees` in `projects.json` to bypass the problem.
+You can check the file `db.json` inside `assets` folder
+
+Hope you enjoy it :)
+
 # Tick42's JavaScript Pre-Interview Task
 
 ## DON'T PANIC!
