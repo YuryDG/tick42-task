@@ -1,25 +1,22 @@
 /* eslint-disable jest/prefer-strict-equal */
 import configureMockStore from 'redux-mock-store';
 import axios from 'axios';
-import mockAxios from 'jest-mock-axios';
 import thunk from 'redux-thunk';
 import { loadDataForCurrentItem, updateSelectedItem } from '..';
 
-import { loadingCompany, companyLoaded } from '../../../companies/actions';
-import { addresses, projects } from '../../../../test-data';
 import { SelectedItem } from '../../types';
+import { addresses, projects } from '../../../../test-data';
+import { loadingCompany, companyLoaded } from '../../../companies/actions';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe('async actions', () => {
+describe('app/actions', () => {
   afterEach(() => {
     jest.resetAllMocks();
-    // cleaning up the mess left behind the previous test
-    mockAxios.reset();
   });
 
-  it('should dispatch the right action when click on a company', () => {
+  it('loadDataForCurrentItem: should dispatch the right action when click on a company', () => {
     const responseAddresses = { data: [addresses[0]] };
     const responseProjects = { data: [projects[0]] };
 
@@ -47,7 +44,7 @@ describe('async actions', () => {
     });
   });
 
-  it('should dispatch the right action when click a job area', () => {
+  it('loadDataForCurrentItem: should dispatch the right action when click a job area', () => {
     const store = mockStore({});
     const selectedItem: SelectedItem = {
       currentNode: 'JobArea',
@@ -62,7 +59,7 @@ describe('async actions', () => {
     });
   });
 
-  it('should dispatch the right action when click an employee', () => {
+  it('loadDataForCurrentItem: should dispatch the right action when click an employee', () => {
     const store = mockStore({});
     const selectedItem: SelectedItem = {
       currentNode: 'Employee',
