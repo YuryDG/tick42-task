@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`app/tree/JobAreaListItem should render properly a job area with employees 1`] = `ShallowWrapper {}`;
+
+exports[`app/tree/JobAreaListItem should render properly a job area without employees 1`] = `ShallowWrapper {}`;
