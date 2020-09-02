@@ -47,7 +47,7 @@ type LoadCompany = {
 type CompanyLoaded = {
   type: CompanyActions.COMPANY_LOADED
   payload: {
-    address: Address,
+    address: Address | null,
     projects: Project[]
   }
 }
@@ -80,7 +80,7 @@ export const loadingCompany = (id: string): LoadCompany => ({
   payload: { id },
 });
 
-export const companyLoaded = (address: Address, projects: Project[]): CompanyLoaded => ({
+export const companyLoaded = (address: Address | undefined, projects: Project[]): CompanyLoaded => ({
   type: CompanyActions.COMPANY_LOADED,
   payload: { address, projects },
 });
@@ -107,9 +107,10 @@ export const loadCompanyData = (companyId: string) => async (dispatch: Dispatch<
 Promise<void> => {
   try {
     dispatch(loadingCompany(companyId));
-    const { data: address } = await API.getCompanyAddress(companyId);
+    const { data: addresses } = await API.getCompanyAddress(companyId);
     const { data: projects } = await API.getCompanyProjects(companyId);
-    dispatch(companyLoaded(address[0], projects));
+    const address = addresses.length > 0 ? addresses[0] : null;
+    dispatch(companyLoaded(address, projects));
   } catch (error) {
     dispatch(errorLoadingCompany(error.message));
   }
