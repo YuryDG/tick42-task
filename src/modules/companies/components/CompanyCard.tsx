@@ -1,9 +1,10 @@
+/* eslint-disable react/require-default-props */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { Company } from '../types';
+import { Address } from '../../addresses/types';
 
 const useStyles = makeStyles({
   root: {
@@ -23,20 +24,26 @@ const useStyles = makeStyles({
 });
 
 type Props = {
-  company: Company
+  address?: Address,
 }
 
-const CompanyCard = ({ company }: Props): JSX.Element => {
+const CompanyCard = ({ address }: Props): JSX.Element => {
   const classes = useStyles();
 
   return (
     <Card className={classes.root} variant="outlined">
       <CardContent>
         <Typography variant="h5" component="h2">
-          {company.name} - {company.business}
+          Country: {address?.country}
         </Typography>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          {company.slogan}
+        <Typography color="textSecondary">
+          City: {address?.city}
+        </Typography>
+        <Typography color="textSecondary">
+          State: {address?.state}
+        </Typography>
+        <Typography color="textSecondary">
+          Street: {address?.city}
         </Typography>
       </CardContent>
     </Card>
