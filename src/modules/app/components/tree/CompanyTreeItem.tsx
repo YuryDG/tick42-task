@@ -1,8 +1,9 @@
 import React from 'react';
-import TreeItem from '@material-ui/lab/TreeItem';
+import BusinessIcon from '@material-ui/icons/Business';
 
 import JobAreaList from './JobAreaList';
 import { TreeDataItem } from '../../types';
+import StyledTreeItem from './StyledTreeItem';
 
 type Props = {
   item: TreeDataItem;
@@ -12,9 +13,16 @@ const CompanyTreeItem = ({ item }: Props): JSX.Element => {
   const { company } = item;
   const nodeId = `Company:${company.id}`;
   return (
-    <TreeItem nodeId={nodeId} label={company.name}>
+    <StyledTreeItem
+      nodeId={nodeId}
+      labelText={company.name}
+      labelIcon={BusinessIcon}
+      labelInfo={`Areas ${item.jobAreas.length}`}
+      color="#1a73e8"
+      bgColor="#e8f0fe"
+    >
       <JobAreaList data={item.jobAreas} />
-    </TreeItem>
+    </StyledTreeItem>
   );
 };
 
