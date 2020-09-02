@@ -5,6 +5,7 @@ import { Project } from '../modules/projects/types';
 import { Company, CompanyIndexed } from '../modules/companies/types';
 import { Employee, EmployeeIndexed } from '../modules/employees/types';
 import { TreeDataItem, JobArea, TreeData } from '../modules/app/types';
+import { AddressIndexed } from '../modules/addresses/types';
 
 function getEmployeesFromCompany(company: Company, employees: Employee[]): Employee[] {
   return employees.filter((employee) => employee.companyId === company.id);
@@ -48,9 +49,15 @@ function buildTreeData(companies: CompanyIndexed, employees: EmployeeIndexed):Tr
   return treeData;
 }
 
+function getAddressFromCompany(company: Company, addresses: AddressIndexed) {
+  const arrAddresses = Object.values(addresses);
+  return arrAddresses.find((address) => address.companyId === company.id);
+}
+
 export {
   getEmployeesFromCompany,
   getProjectsFromCompany,
   buildTreeData,
   getEmployeesJobArea,
+  getAddressFromCompany,
 };
