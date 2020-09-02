@@ -9,9 +9,11 @@ import { loadDataForCurrentItem } from './modules/app/actions';
 import AppLayout from './modules/app/components/AppLayout';
 
 const mapStateToProps = (state: AppState) => {
-  const { companies, employees, selectedItem } = state;
+  const {
+    companies, employees, selectedItem, errorMessage,
+  } = state;
   const treeData = buildTreeData(companies, employees);
-  return { treeData, selectedItem };
+  return { treeData, selectedItem, errorMessage };
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
