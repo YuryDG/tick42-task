@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-restricted-syntax */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,14 +5,16 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { Theme, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
+import { Typography } from '@material-ui/core';
 
+import Alert from '@material-ui/lab/Alert';
 import * as API from '../../../api/api';
 import { CompanyIndexed } from '../types';
 import { SelectedItem } from '../../app/types';
 import { EmployeeIndexed, Employee } from '../../employees/types';
 import { ProjectIndexed, ProjectDataTable, Project } from '../../projects/types';
 import { AppState } from '../../../store/AppStore';
-import { getProjectsFromCompany, getEmployeesFromCompany } from '../../../utils';
+import { getProjectsFromCompany, getEmployeesFromCompany, getAddressFromCompany } from '../../../utils';
 import {
   updateProject,
   removeProject,
@@ -26,20 +26,15 @@ import ProjectTable from '../../projects/components/ProjectTable';
 import TabPanel from '../../app/components/TapPanel';
 import CompanyCard from './CompanyCard';
 import ManageUnemployment from '../../employees/components/ManageUnemployment';
+import { AddressIndexed, Address } from '../../addresses/types';
 
 type SelectData = {
   employees: EmployeeIndexed
   projects: ProjectIndexed,
   companies: CompanyIndexed,
+  addresses: AddressIndexed,
   selectedItem: SelectedItem,
   loading: boolean
-}
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -57,6 +52,16 @@ const CompanyDetails = (): JSX.Element => {
   const [currentTab, setCurrentTab] = useState(0);
   const [projects, setProjects] = useState<Project[]>([]);
   const [unemployed, setUnemployed] = useState<Employee[]>([]);
+  const [error, setError] = useState('');
+  const [address, setAddress] = useState<Address|undefined>(undefined);
+
+  const getAddress = () => {
+    if (data.selectedItem.currentNode === 'Company') {
+      const company = data.companies[data.selectedItem.id];
+      const currentAddress = getAddressFromCompany(company, data.addresses);
+      setAddress(currentAddress);
+    }
+  };
 
   const formatData = () => {
     const company = data.companies[data.selectedItem.id];
@@ -93,6 +98,12 @@ const CompanyDetails = (): JSX.Element => {
   };
 
   useEffect(() => {
+    if (data.selectedItem.currentNode === 'Company') {
+      getAddress();
+    }
+  }, [data.selectedItem]);
+
+  useEffect(() => {
     formatData();
   }, [data.selectedItem, data.projects]);
 
@@ -100,8 +111,8 @@ const CompanyDetails = (): JSX.Element => {
     try {
       await API.updateProject(project);
       dispatch(updateProject(project));
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      setError(`Error editing project. Details ${err.message}`);
     }
   };
 
@@ -109,8 +120,8 @@ const CompanyDetails = (): JSX.Element => {
     try {
       await API.removeProject(projectId);
       dispatch(removeProject(projectId));
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      setError(`Error deleting project. Details ${err.message}`);
     }
   };
 
@@ -122,19 +133,27 @@ const CompanyDetails = (): JSX.Element => {
       };
       const { data: project } = await API.addProject(newProject);
       dispatch(addProject(project));
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      setError(`Error creating new project. Details ${err.message}`);
     }
   };
 
   const handleRemoveEmployeeFromProject = async (project: Project) => {
-    await API.updateProject(project);
-    dispatch(removeEmployeeFromProject(project));
+    try {
+      await API.updateProject(project);
+      dispatch(removeEmployeeFromProject(project));
+    } catch (err) {
+      setError(`Error removing employee from project ${project.name}. Details ${err.message}`);
+    }
   };
 
   const handleAssignEmployeesToProject = async (project: Project) => {
-    await API.updateProject(project);
-    dispatch(assignEmployee(project));
+    try {
+      await API.updateProject(project);
+      dispatch(assignEmployee(project));
+    } catch (err) {
+      setError(`Error assigning employee to project ${project.name}. Details ${err.message}`);
+    }
   };
 
   const handleChange = (event: any, newValue: number) => {
@@ -145,12 +164,17 @@ const CompanyDetails = (): JSX.Element => {
     <div className={classes.root}>
       <AppBar position="static">
         <Tabs value={currentTab} onChange={handleChange} aria-label="companies details">
-          <Tab label="Projects" {...a11yProps(0)} />
-          <Tab label="Employees without projects" {...a11yProps(1)} />
+          <Tab label="Projects" id="projects" />
+          <Tab label="Employees without projects" id="employees" />
         </Tabs>
       </AppBar>
       <TabPanel value={currentTab} index={0}>
-        <CompanyCard company={data.companies[data.selectedItem.companyId]} />
+        <Typography component="div">
+          {error && <Alert severity="error">{error}</Alert> }
+        </Typography>
+
+        <br />
+        <CompanyCard address={address} />
         <br />
         <ProjectTable
           onEditProject={handleEditProject}
