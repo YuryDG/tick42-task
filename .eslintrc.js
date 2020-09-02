@@ -55,6 +55,7 @@ module.exports = {
 
     // react rules
     'react/button-has-type': 'off',
+    'jest/no-truthy-falsy': 'off',
     'react/prop-types': 'off',
     'react/destructuring-assignment': ['off', 'never'],
     'react/state-in-constructor': ['off', 'never'],
