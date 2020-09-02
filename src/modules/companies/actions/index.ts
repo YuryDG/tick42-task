@@ -80,7 +80,7 @@ export const loadingCompany = (id: string): LoadCompany => ({
   payload: { id },
 });
 
-export const companyLoaded = (address: Address | undefined, projects: Project[]): CompanyLoaded => ({
+export const companyLoaded = (address: Address | null, projects: Project[]): CompanyLoaded => ({
   type: CompanyActions.COMPANY_LOADED,
   payload: { address, projects },
 });
