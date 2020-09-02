@@ -8,35 +8,35 @@ export enum ProjectActions {
   REMOVE_EMPLOYEE = 'PROJECTS/REMOVE_EMPLOYEE',
 }
 
-type ActionAddProject = {
+type AddProject = {
   type: ProjectActions.ADD_PROJECT,
   payload: {
     project: Project,
   }
 }
 
-type ActionUpdateProject = {
+type UpdateProject = {
   type: ProjectActions.UPDATE_PROJECT,
   payload: {
     project: Project
   }
 }
 
-type ActionRemoveProject = {
+type RemoveProject = {
   type: ProjectActions.REMOVE_PROJECT,
   payload: {
     projectId: string
   }
 }
 
-type ActionAssignEmployee = {
+type AssignEmployee = {
   type: ProjectActions.ASSIGN_EMPLOYEE,
   payload: {
     project: Project
   }
 }
 
-type ActionRemoveEmployee = {
+type RemoveEmployee = {
   type: ProjectActions.REMOVE_EMPLOYEE,
   payload: {
     project: Project,
@@ -44,34 +44,30 @@ type ActionRemoveEmployee = {
 }
 
 // action creators
-export const addProject = (project: Project): ActionAddProject => ({
+export const addProject = (project: Project): AddProject => ({
   type: ProjectActions.ADD_PROJECT,
   payload: { project },
 });
 
-export const updateProject = (project: Project): ActionUpdateProject => ({
+export const updateProject = (project: Project): UpdateProject => ({
   type: ProjectActions.UPDATE_PROJECT,
   payload: { project },
 });
 
-export const removeProject = (projectId: string): ActionRemoveProject => ({
+export const removeProject = (projectId: string): RemoveProject => ({
   type: ProjectActions.REMOVE_PROJECT,
   payload: { projectId },
 });
 
-export const assignEmployee = (project: Project): ActionAssignEmployee => ({
+export const assignEmployee = (project: Project): AssignEmployee => ({
   type: ProjectActions.ASSIGN_EMPLOYEE,
   payload: { project },
 });
 
-export const removeEmployeeFromProject = (project: Project): ActionRemoveEmployee => ({
+export const removeEmployeeFromProject = (project: Project): RemoveEmployee => ({
   type: ProjectActions.REMOVE_EMPLOYEE,
   payload: { project },
 });
 
-export type ProjectActionTypes =
-  ActionAddProject |
-  ActionRemoveProject |
-  ActionUpdateProject |
-  ActionAssignEmployee |
-  ActionRemoveEmployee
+export type ProjectActionTypes = AddProject | RemoveProject | UpdateProject
+| AssignEmployee | RemoveEmployee
