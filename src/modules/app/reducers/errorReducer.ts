@@ -4,9 +4,6 @@ const errorReducer = (state = '', action: CompanyActionTypes):string => {
   switch (action.type) {
     case CompanyActions.ERROR_LOADING_COMPANIES:
       return action.payload.error;
-    case CompanyActions.COMPANIES_LOADED:
-    case CompanyActions.LOAD_COMPANIES:
-      return '';
     default:
       return state;
   }
