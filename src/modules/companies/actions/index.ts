@@ -103,15 +103,12 @@ Promise<void> => {
   }
 };
 
-export const loadCompanyData = (id: string) => async (dispatch: Dispatch<CompanyActionTypes>):
+export const loadCompanyData = (companyId: string) => async (dispatch: Dispatch<CompanyActionTypes>):
 Promise<void> => {
   try {
-    dispatch(loadingCompany(id));
-    const { data: address } = await API.getCompanyAddress(id);
-    const { data: projects } = await API.getCompanyProjects(id);
-
-    // check, maybe there are companies without address
-
+    dispatch(loadingCompany(companyId));
+    const { data: address } = await API.getCompanyAddress(companyId);
+    const { data: projects } = await API.getCompanyProjects(companyId);
     dispatch(companyLoaded(address[0], projects));
   } catch (error) {
     dispatch(errorLoadingCompany(error.message));
