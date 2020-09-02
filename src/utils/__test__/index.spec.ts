@@ -1,8 +1,12 @@
 import {
-  companies, employees, projects, addresses, addressesIndexed, companiesIndexed, employeesIndexed,
+  companies, employees, projects, addresses, addressesIndexed,
 } from '../../test-data';
 import {
-  getEmployeesFromCompany, getProjectsFromCompany, getEmployeesJobArea, getAddressFromCompany, buildTreeData,
+  getEmployeesFromCompany,
+  getProjectsFromCompany,
+  getEmployeesJobArea,
+  getAddressFromCompany,
+  buildTreeData,
 } from '..';
 
 describe('utils', () => {
